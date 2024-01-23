@@ -49,4 +49,31 @@ public class Calculadora implements ICalc {
             throw new IllegalArgumentException("Faltan operandos para la resta.");
         }
     }
+    /*
+     * Realiza la operación de resta tomando dos operandos de la pila.
+     */
+    public int multiplicacion() {
+        Integer operandoB = stack.pop();
+        Integer operandoA = stack.pop();
+        if (operandoA != null && operandoB != null) {
+            return operandoA * operandoB;
+        } else {
+            throw new IllegalArgumentException("Faltan operandos para la multiplicación.");
+        }
+    }
+    
+    /*
+     * Realiza la operación de resta tomando dos operandos de la pila.
+     */
+    public int division() {
+        Integer operandoB = stack.pop();
+        Integer operandoA = stack.pop();
+        if (operandoA != null && operandoB != null && operandoB != 0) {
+            return operandoA / operandoB;
+        } else {
+            throw new IllegalArgumentException("Faltan operandos o división por cero.");
+        }
+    }
+
+
 }
