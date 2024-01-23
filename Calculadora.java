@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  * Implementación de la interfaz ICalc que realiza operaciones aritmeticas
  * utilizando una pila (stack) de enteros.
@@ -75,5 +79,24 @@ public class Calculadora implements ICalc {
         }
     }
 
+    @Override
+    public String readTXT() {
+        try (BufferedReader br = new BufferedReader(new FileReader("datos.txt"))) {
+            return br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public boolean isNumeric(String value) {
+        try {
+            Integer.parseInt(value);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
 }
