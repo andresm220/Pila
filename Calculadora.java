@@ -22,6 +22,79 @@ public class Calculadora implements ICalc {
         this.stack = stack;
     }
 
+ /**
+     * La función calculate procesa una expresión matemática en notación postfix
+     * (postfija) utilizando la pila de enteros. La expresión debe estar formateada
+     * con operadores y operandos separados por espacios.
+     * Los operadores permitidos son: + (suma), - (resta), * (multiplicación), / (división).
+     *
+     * @throws IllegalArgumentException Si la expresión no contiene suficientes operandos
+     * o si se encuentra un operador no válido.
+     */
+    public void calculate() {
+        try {
+            // Lee la expresión matemática desde una fuente (en este caso, método readTXT).
+            String expresion = readTXT();
+
+            // Divide la expresión en tokens separados por espacios.
+            String[] tokens = expresion.split(" ");
+
+            // Verifica que la expresión tenga al menos dos operandos y un operador.
+            if (tokens.length < 3) {
+                throw new IllegalArgumentException("Se necesitan al menos dos operandos y un operador.");
+            }
+
+            // Procesa cada token de la expresión.
+            for (String token : tokens) {
+                if (isNumeric(token)) {
+                    // Si el token es un número, lo apila en la pila de operandos.
+                    stack.push(Integer.parseInt(token));
+                } else {
+                    // Si el token es un operador, realiza la operación correspondiente y apila el resultado.
+                    switch (token) {
+                        case "+":
+                            stack.push(sumar());
+                            break;
+                        case "-":
+                            stack.push(resta());
+                            break;
+                        case "*":
+                            stack.push(multiplicacion());
+                            break;
+                        case "/":
+                            stack.push(division());
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Operador no válido: " + token);
+                    }
+                }
+            }
+
+            // Obtiene el resultado final de la expresión.
+            Integer resultado = stack.pop();
+
+            // Verifica si hay un exceso de operadores en la pila.
+            if (stack.pop() != null) {
+                throw new IllegalArgumentException("La expresión no tiene suficientes operadores.");
+            }
+
+            // Imprime la expresión y el resultado.
+            System.out.println("Expresion: " + expresion);
+            System.out.println("Resultado: " + resultado);
+
+        } catch (ArithmeticException e) {
+            // Captura y muestra excepciones aritméticas, como la división por cero.
+            System.out.println("Error: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            // Captura y muestra excepciones relacionadas con argumentos no válidos en la expresión.
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+
+
+
+
     /**
      * Realiza la operación de suma tomando dos operandos de la pila.
      *
