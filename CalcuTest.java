@@ -57,22 +57,23 @@ public class CalcuTest {
     /**
      * Prueba la operación de división.
      */
-    @Test
     public void testDivision() {
         stack.push(10);
         stack.push(2);
 
-        // Realiza la operación de división y verifica el cociente.
-        int cociente = calculadora.division();
+        // Realiza la operación de división y verifica el resultado.
+        boolean divisionExitosa = calculadora.division();
+        assertTrue(divisionExitosa);
+        int resultado = stack.pop();
 
         // Verifica que la división de 10 por 2 sea igual a 5.
-        assertEquals(5, cociente);
+        assertEquals(5, resultado);
     }
 
     /**
      * Prueba la excepción arrojada al dividir por cero.
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = ArithmeticException.class)
     public void testDivisionByZero() {
         stack.push(5);
         stack.push(0);

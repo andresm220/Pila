@@ -3,7 +3,7 @@ public interface ICalc {
     public int sumar();
     public int resta();
     public int multiplicacion();
-    public int division();
+    public boolean division();
     public String readTXT();
     public boolean isNumeric(String value);
 }
